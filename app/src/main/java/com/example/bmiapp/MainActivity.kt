@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
+import androidx.navigation.NavGraph
 import com.example.bmiapp.Navigation.NavigatonGraph
 import com.example.bmiapp.ui.theme.BMIAppTheme
 

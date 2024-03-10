@@ -1,24 +1,16 @@
 package com.example.bmiapp
 
-import android.health.connect.datatypes.units.Percentage
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -30,21 +22,17 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.bmiapp.Screens.DetailScreen
 import com.example.bmiapp.Screens.TitleText
 import com.example.bmiapp.ui.theme.DarkRed40
 import com.example.bmiapp.ui.theme.Orange30
 
 @Composable
-fun ResultScreen(navcontroller: NavHostController){
+fun ResultScreen(navController: NavHostController, Weight: Int?, Height: Float?){
     Column(modifier = Modifier
         .fillMaxSize()
         .background(color = Color.Black)
@@ -54,21 +42,43 @@ fun ResultScreen(navcontroller: NavHostController){
 
         if(8 < 5){
             Underweight()
+            Spacer(modifier = Modifier.padding(30.dp))
+            Text(text = "Tavsiye: Sağlıklı bir kiloya ulaşmak için beslenme alışkanlıklarını gözden geçirmek, dengeli ve besleyici bir diyet benimsemek, egzersiz yapmak ve gerekirse bir sağlık uzmanından destek almak önemlidir.", fontSize = 20.sp, color = Color.Yellow, style = MaterialTheme.typography.headlineMedium, modifier = Modifier.padding(10.dp))
 
         }else if (10 < 5){
             Healthy()
+            Spacer(modifier = Modifier.padding(30.dp))
+            Text(text = "Tavsiye: Sağlıklı kiloyu korumak için dengeli bir diyet sürdürmek, aktif kalmak ve düzenli egzersiz yapmak önemlidir.", fontSize = 20.sp, color = Color.Green, style = MaterialTheme.typography.headlineMedium, modifier = Modifier.padding(10.dp))
 
-        }  else if ( 20 <4){
+
+        }  else if ( 20 < 4){
             Overweight()
+            Spacer(modifier = Modifier.padding(30.dp))
+            Text(text = "Tavsiye: Sağlıklı kiloya ulaşmak veya korumak için beslenme alışkanlıklarını iyileştirmek, düzenli egzersiz yapmak, yağ ve şeker içeriği yüksek yiyeceklerden kaçınmak önemlidir.", fontSize = 20.sp, color = Orange30, style = MaterialTheme.typography.headlineMedium, modifier = Modifier.padding(10.dp))
+
 
         } else if (12 < 4){
             Obese()
+            Spacer(modifier = Modifier.padding(30.dp))
+            Text(text = "Tavsiye: Sağlıklı bir yaşam tarzı benimsemek, dengeli bir diyet ve düzenli egzersiz yapmak, kilo kontrolü ve sağlıklı yaşam için en önemli faktörlerdir. Ayrıca, sağlık uzmanından destek almak ve uygun bir kilo kaybı planı oluşturmak önemlidir.", fontSize = 20.sp, color = Color.Red, style = MaterialTheme.typography.headlineMedium, modifier = Modifier.padding(10.dp))
+
 
         } else if (12 > 5) {
             VeryObese()
+            Spacer(modifier = Modifier.padding(30.dp))
+            Text(text = "Tavsiye: Hastalık riskleri çok yüksek olan bu kişiler, doktor ve diyetisyen kontrolü ile sağlık taramasından geçirilmeli ve kilo vermelidir.", fontSize = 20.sp, color = DarkRed40, style = MaterialTheme.typography.headlineMedium, modifier = Modifier.padding(10.dp))
+
         }
 
         Spacer(modifier = Modifier.padding(20.dp))
+
+
+        Text(text = "$Height", fontSize = 30.sp, color = Color.White)
+
+        Text(text = "$Weight", fontSize = 30.sp, color = Color.White)
+
+
+
 
 
     }
@@ -76,37 +86,34 @@ fun ResultScreen(navcontroller: NavHostController){
 }
 
 
-
-@Composable
-fun Healthy(){
-    ResultText(text = "HEALTHY", color = Color.Green)
-    Spacer(modifier = Modifier.padding(top = 60.dp))
-    CircularProgressBar(progress = 0.47f, number = 47, Color.Green)
-
-}
 @Composable
 fun Underweight(){
-    ResultText(text = "UNDERWEİGHT", color = Color.Yellow )
+    ResultText(text = "ZAYIF", color = Color.Yellow )
     Spacer(modifier = Modifier.padding(top = 60.dp))
     CircularProgressBar(progress = 0.47f, number = 47,Color.Yellow)
-
+}
+@Composable
+fun Healthy(){
+    ResultText(text = "NORMAL", color = Color.Green)
+    Spacer(modifier = Modifier.padding(top = 60.dp))
+    CircularProgressBar(progress = 0.47f, number = 47, Color.Green)
 }
 @Composable
 fun Overweight(){
-    ResultText(text = "OVERWEİGHT", color = Orange30 )
+    ResultText(text = "KİLOLU", color = Orange30 )
     Spacer(modifier = Modifier.padding(top = 60.dp))
     CircularProgressBar(progress = 0.47f, number = 47, color = Orange30)
 }
 @Composable
 fun Obese(){
-    ResultText(text = "OBESE", color = Color.Red)
+    ResultText(text = "OBEZ", color = Color.Red)
     Spacer(modifier = Modifier.padding(top = 60.dp))
     CircularProgressBar(progress = 0.47f, number = 47,Color.Red)
 
 }
 @Composable
 fun VeryObese(){
-    ResultText(text = "VERY OBESE", color = DarkRed40)
+    ResultText(text = "MORBİD OBEZ", color = DarkRed40)
     Spacer(modifier = Modifier.padding(top = 60.dp))
     CircularProgressBar(progress = 0.47f, number = 47, color = DarkRed40)
 
@@ -153,10 +160,11 @@ fun CircularProgressBar(progress: Float, number: Int,color: Color, modifier: Mod
 }
 
 
+@Composable
+fun bmi(Weight: Int?,Height: Int?){
 
 
-
-
+}
 
 @Composable
 fun ResultText(text:String,color: Color){
@@ -164,8 +172,12 @@ fun ResultText(text:String,color: Color){
 }
 
 
+
+
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    ResultScreen(navcontroller = rememberNavController())
+
+        ResultScreen(navController = rememberNavController(), Weight = null, Height = null)
+
 }

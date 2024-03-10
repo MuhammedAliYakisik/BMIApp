@@ -41,13 +41,13 @@ fun HomeScreen(navcontroller: NavHostController) {
 
         Row (){
             TextButton(onClick = { navcontroller.navigate(route = "detail")}) {
-                Text(text = "MALE", fontSize = 30.sp, color = Color.White )
+                Text(text = "ERKEK", fontSize = 30.sp, color = Color.White )
 
             }
             Spacer(modifier = Modifier.padding(20.dp))
 
             TextButton(onClick = { navcontroller.navigate("detail")  }, modifier = Modifier.padding(start = 20.dp)) {
-                Text(text = "FEMALE", fontSize = 30.sp, color = Color.White )
+                Text(text = "KADIN", fontSize = 30.sp, color = Color.White )
 
             }
         }

@@ -1,13 +1,14 @@
 package com.example.bmiapp.Navigation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.bmiapp.ResultScreen
 import com.example.bmiapp.Screens.DetailScreen
 import com.example.bmiapp.Screens.HomeScreen
-import kotlinx.coroutines.flow.combine
 
 @Composable
 fun NavigatonGraph(){
@@ -26,8 +27,18 @@ fun NavigatonGraph(){
 
         }
 
-        composable(route = "result"){
-            ResultScreen(navcontroller)
+        composable(route = "result/{height}/{weight}", arguments = listOf(
+            navArgument(name = "height"){
+            type = NavType.FloatType
+        },
+            navArgument(name = "weight"){
+                type = NavType.IntType
+            }
+
+
+        )){backstackentry ->
+
+            ResultScreen(Height = backstackentry.arguments?.getFloat("height"), Weight = backstackentry.arguments?.getInt("weight"), navController = navcontroller)
         }
 
     }
