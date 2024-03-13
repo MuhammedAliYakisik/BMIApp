@@ -6,7 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.bmiapp.ResultScreen
+import com.example.bmiapp.Screens.ResultScreen
 import com.example.bmiapp.Screens.DetailScreen
 import com.example.bmiapp.Screens.HomeScreen
 

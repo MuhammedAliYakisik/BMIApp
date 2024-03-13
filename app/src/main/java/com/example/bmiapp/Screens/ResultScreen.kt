@@ -1,4 +1,4 @@
-package com.example.bmiapp
+package com.example.bmiapp.Screens
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -27,12 +27,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.bmiapp.Screens.TitleText
 import com.example.bmiapp.ui.theme.DarkRed40
 import com.example.bmiapp.ui.theme.Orange30
 
+
 @Composable
 fun ResultScreen(navController: NavHostController, Weight: Int?, Height: Float?){
+    var bmi : Float? = null
+    if (Weight != null && Height != null ) {
+        bmi = Weight / (Height * Height)
+
+    }
+
     Column(modifier = Modifier
         .fillMaxSize()
         .background(color = Color.Black)
@@ -40,43 +46,36 @@ fun ResultScreen(navController: NavHostController, Weight: Int?, Height: Float?)
         TitleText(text = "BMI CALCULATOR")
         Spacer(modifier = Modifier.padding(40.dp))
 
-        if(8 < 5){
-            Underweight()
-            Spacer(modifier = Modifier.padding(30.dp))
-            Text(text = "Tavsiye: Sağlıklı bir kiloya ulaşmak için beslenme alışkanlıklarını gözden geçirmek, dengeli ve besleyici bir diyet benimsemek, egzersiz yapmak ve gerekirse bir sağlık uzmanından destek almak önemlidir.", fontSize = 20.sp, color = Color.Yellow, style = MaterialTheme.typography.headlineMedium, modifier = Modifier.padding(10.dp))
-
-        }else if (10 < 5){
-            Healthy()
-            Spacer(modifier = Modifier.padding(30.dp))
-            Text(text = "Tavsiye: Sağlıklı kiloyu korumak için dengeli bir diyet sürdürmek, aktif kalmak ve düzenli egzersiz yapmak önemlidir.", fontSize = 20.sp, color = Color.Green, style = MaterialTheme.typography.headlineMedium, modifier = Modifier.padding(10.dp))
 
 
-        }  else if ( 20 < 4){
-            Overweight()
-            Spacer(modifier = Modifier.padding(30.dp))
-            Text(text = "Tavsiye: Sağlıklı kiloya ulaşmak veya korumak için beslenme alışkanlıklarını iyileştirmek, düzenli egzersiz yapmak, yağ ve şeker içeriği yüksek yiyeceklerden kaçınmak önemlidir.", fontSize = 20.sp, color = Orange30, style = MaterialTheme.typography.headlineMedium, modifier = Modifier.padding(10.dp))
+        if(Height != null && Weight != null){
+            if (bmi != null){
+                if ( bmi < 18.5f){
+                    Underweight(bmi = bmi)
+                    Spacer(modifier = Modifier.padding(30.dp))
+                    Text(text = "Tavsiye: Sağlıklı bir kiloya ulaşmak için beslenme alışkanlıklarını gözden geçirmek, dengeli ve besleyici bir diyet benimsemek, egzersiz yapmak ve gerekirse bir sağlık uzmanından destek almak önemlidir.", fontSize = 20.sp, color = Color.Yellow, style = MaterialTheme.typography.headlineMedium, modifier = Modifier.padding(10.dp))
+                } else if (bmi < 25f){
+                    Healthy(bmi = bmi)
+                    Spacer(modifier = Modifier.padding(30.dp))
+                    Text(text = "Tavsiye: Sağlıklı kiloyu korumak için dengeli bir diyet sürdürmek, aktif kalmak ve düzenli egzersiz yapmak önemlidir.", fontSize = 20.sp, color = Color.Green, style = MaterialTheme.typography.headlineMedium, modifier = Modifier.padding(10.dp))
+                } else if (bmi < 30f){
+                    Overweight(bmi = bmi)
+                    Spacer(modifier = Modifier.padding(30.dp))
+                    Text(text = "Tavsiye: Sağlıklı kiloya ulaşmak veya korumak için beslenme alışkanlıklarını iyileştirmek, düzenli egzersiz yapmak, yağ ve şeker içeriği yüksek yiyeceklerden kaçınmak önemlidir.", fontSize = 20.sp, color = Orange30, style = MaterialTheme.typography.headlineMedium, modifier = Modifier.padding(10.dp))
+                } else if (bmi < 35f){
+                    Obese(bmi = bmi)
+                    Spacer(modifier = Modifier.padding(30.dp))
+                    Text(text = "Tavsiye: Sağlıklı bir yaşam tarzı benimsemek, dengeli bir diyet ve düzenli egzersiz yapmak, kilo kontrolü ve sağlıklı yaşam için en önemli faktörlerdir. Ayrıca, sağlık uzmanından destek almak ve uygun bir kilo kaybı planı oluşturmak önemlidir.", fontSize = 20.sp, color = Color.Red, style = MaterialTheme.typography.headlineMedium, modifier = Modifier.padding(10.dp))
+                } else {
+                    VeryObese(bmi = bmi)
+                    Spacer(modifier = Modifier.padding(30.dp))
+                    Text(text = "Tavsiye: Hastalık riskleri çok yüksek olan bu kişiler, doktor ve diyetisyen kontrolü ile sağlık taramasından geçirilmeli ve kilo vermelidir.", fontSize = 20.sp, color = DarkRed40, style = MaterialTheme.typography.headlineMedium, modifier = Modifier.padding(10.dp))
+                }
+            }
+            }
 
-
-        } else if (12 < 4){
-            Obese()
-            Spacer(modifier = Modifier.padding(30.dp))
-            Text(text = "Tavsiye: Sağlıklı bir yaşam tarzı benimsemek, dengeli bir diyet ve düzenli egzersiz yapmak, kilo kontrolü ve sağlıklı yaşam için en önemli faktörlerdir. Ayrıca, sağlık uzmanından destek almak ve uygun bir kilo kaybı planı oluşturmak önemlidir.", fontSize = 20.sp, color = Color.Red, style = MaterialTheme.typography.headlineMedium, modifier = Modifier.padding(10.dp))
-
-
-        } else if (12 > 5) {
-            VeryObese()
-            Spacer(modifier = Modifier.padding(30.dp))
-            Text(text = "Tavsiye: Hastalık riskleri çok yüksek olan bu kişiler, doktor ve diyetisyen kontrolü ile sağlık taramasından geçirilmeli ve kilo vermelidir.", fontSize = 20.sp, color = DarkRed40, style = MaterialTheme.typography.headlineMedium, modifier = Modifier.padding(10.dp))
-
-        }
 
         Spacer(modifier = Modifier.padding(20.dp))
-
-
-        Text(text = "$Height", fontSize = 30.sp, color = Color.White)
-
-        Text(text = "$Weight", fontSize = 30.sp, color = Color.White)
-
 
 
 
@@ -86,38 +85,49 @@ fun ResultScreen(navController: NavHostController, Weight: Int?, Height: Float?)
 }
 
 
+
 @Composable
-fun Underweight(){
-    ResultText(text = "ZAYIF", color = Color.Yellow )
+fun Underweight(bmi: Float?) {
+    ResultText(text = "ZAYIF", color = Color.Yellow)
     Spacer(modifier = Modifier.padding(top = 60.dp))
-    CircularProgressBar(progress = 0.47f, number = 47,Color.Yellow)
+    bmi?.let {
+        CircularProgressBar(progress = it / 100f, number = it.toInt(), color = Color.Yellow)
+    }
 }
+
 @Composable
-fun Healthy(){
+fun Healthy(bmi: Float?){
     ResultText(text = "NORMAL", color = Color.Green)
     Spacer(modifier = Modifier.padding(top = 60.dp))
-    CircularProgressBar(progress = 0.47f, number = 47, Color.Green)
+    bmi?.let {
+        CircularProgressBar(progress = it / 100f, number = it.toInt(), color = Color.Green)
+    }
 }
 @Composable
-fun Overweight(){
+fun Overweight(bmi: Float?){
     ResultText(text = "KİLOLU", color = Orange30 )
     Spacer(modifier = Modifier.padding(top = 60.dp))
-    CircularProgressBar(progress = 0.47f, number = 47, color = Orange30)
+    bmi?.let {
+        CircularProgressBar(progress = it / 100f, number = it.toInt(), color = Orange30)
+    }
 }
 @Composable
-fun Obese(){
+fun Obese(bmi: Float?){
     ResultText(text = "OBEZ", color = Color.Red)
     Spacer(modifier = Modifier.padding(top = 60.dp))
-    CircularProgressBar(progress = 0.47f, number = 47,Color.Red)
-
+    bmi?.let {
+        CircularProgressBar(progress = it / 100f, number = it.toInt(), color = Color.Red)
+    }
 }
 @Composable
-fun VeryObese(){
+fun VeryObese(bmi: Float?){
     ResultText(text = "MORBİD OBEZ", color = DarkRed40)
     Spacer(modifier = Modifier.padding(top = 60.dp))
-    CircularProgressBar(progress = 0.47f, number = 47, color = DarkRed40)
-
+    bmi?.let {
+        CircularProgressBar(progress = it / 100f, number = it.toInt(), color = DarkRed40)
+    }
 }
+
 
 @Composable
 fun CircularProgressBar(progress: Float, number: Int,color: Color, modifier: Modifier = Modifier) {
@@ -125,6 +135,7 @@ fun CircularProgressBar(progress: Float, number: Int,color: Color, modifier: Mod
         val innerRadius = size.minDimension / 2 - 8
         val outerRadius = size.minDimension / 2
         val center = Offset(size.width / 2, size.height / 2)
+
 
         drawArc(
             color = Color.Black,
@@ -160,11 +171,8 @@ fun CircularProgressBar(progress: Float, number: Int,color: Color, modifier: Mod
 }
 
 
-@Composable
-fun bmi(Weight: Int?,Height: Int?){
 
 
-}
 
 @Composable
 fun ResultText(text:String,color: Color){
