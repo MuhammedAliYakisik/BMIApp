@@ -5,5 +5,6 @@ VİDEO OF THE APP
 </h2>
 
 
-Uploading New BMİ APP VİDEO.mp4…
+https://github.com/MuhammedAliYakisik/BMIApp/assets/129868370/e2f4b383-76c4-499f-8795-cf88731019fb
+
 
